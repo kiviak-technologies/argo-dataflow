@@ -15093,6 +15093,26 @@ spec:
       labels:
         control-plane: controller-manager
     spec:
+      tolerations:
+      - key: ircamamplify.io/core
+        operator: Exists
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/os
+                operator: In
+                values:
+                - linux
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+              - key: karpenter.sh/provisioner-name
+                operator: In
+                values:
+                - core
       containers:
       - args:
         - --metrics-addr=127.0.0.1:9090
